@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Expense Tracker</title>
+    <link rel="stylesheet" href="code.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- For icons -->
+</head>
+<body>
+    <header>
+        <h1>Expense Tracker</h1>
+        <div class="settings-controls">
+             <div class="currency-select-container">
+                <label for="currency">Currency:</label>
+                <select id="currency">
+                    <option value="$">USD ($)</option>
+                    <option value="€">EUR (€)</option>
+                    <option value="£">GBP (£)</option>
+                    <option value="¥">JPY (¥)</option>
+                    <option value="₹">INR (₹)</option>
+                    <option value="A$">AUD (A$)</option>
+                    <option value="C$">CAD (C$)</option>
+                    <option value="CHF">CHF (CHF)</option>
+                    <option value="C¥">CNY (¥)</option>
+                     <option value="₽">RUB (₽)</option>
+                     <option value="BRL">BRL (R$)</option>
+                    <!-- Add more currencies as needed -->
+                </select>
+            </div>
+            <button id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="add-expense">
+            <h2>Add New Expense</h2>
+            <form id="expense-form">
+                <div class="form-group">
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" step="0.01" required>
+                </div>
+                 <div class="form-group">
+                    <label for="category">Category:</label>
+                    <select id="category" required>
+                        <option value="">--Select Category--</option>
+                        <option value="Food">Food</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Health">Health</option>
+                        <option value="Bills">Bills</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes (Optional):</label>
+                    <input type="text" id="notes">
+                </div>
+                <button type="submit">Add Expense</button>
+            </form>
+        </section>
+
+         <section id="budget-section">
+            <h2>Monthly Budget</h2>
+            <div class="budget-controls">
+                <label for="monthly-budget-input">Set Budget:</label>
+                <input type="number" id="monthly-budget-input" step="0.01" value="0">
+                <button id="set-budget-btn">Set</button>
+            </div>
+            <div class="budget-summary">
+                <p>Budget: <span id="budget-amount">0</span></p>
+                <p>Spent This Month: <span id="spent-this-month">0</span></p>
+                <p>Remaining: <span id="remaining-budget">0</span></p>
+                 <p id="budget-status" class="status"></p>
+            </div>
+        </section>
+
+        <section id="expense-list-section">
+            <h2>Expense List</h2>
+            <div class="filter-controls">
+                <label for="filter-date-range">Filter By:</label>
+                <select id="filter-date-range">
+                    <option value="all">All Time</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
+                    <option value="custom">Custom Range</option>
+                </select>
+                <input type="date" id="filter-start-date" class="custom-filter" style="display: none;">
+                <input type="date" id="filter-end-date" class="custom-filter" style="display: none;">
+            </div>
+
+            <div class="summary-totals">
+                 <p>Total Shown Expenses: <span id="total-filtered-expenses">0</span></p>
+                <p>Category Totals (Shown):</p>
+                <ul id="category-totals-list">
+                    <!-- Category totals will be populated here -->
+                </ul>
+            </div>
+
+            <div class="expense-table-container">
+                <table id="expense-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Notes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Expenses will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="charts-section">
+            <h2>Visualizations</h2>
+            <div class="chart-container">
+                <div class="chart-item">
+                     <h3>Spending by Category (Shown)</h3>
+                     <canvas id="categoryPieChart"></canvas>
+                     <ul id="pie-chart-legend" class="chart-legend"></ul>
+                </div>
+                 <div class="chart-item">
+                     <h3>Daily Spending Trend (Shown)</h3>
+                     <canvas id="dailyBarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="export-section">
+            <h2>Export Data</h2>
+            <button id="export-json-btn">Export as JSON</button>
+            <button id="export-csv-btn">Export as CSV</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Simple Expense Tracker</p>
+    </footer>
+
+    <script src="code.js"></script>
+</body>
+</html>
